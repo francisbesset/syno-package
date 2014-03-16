@@ -1,0 +1,13 @@
+{
+    "require": {
+        "silex/silex": "~1.1",
+        "symfony/console": "~2.3",
+        "symfony/filesystem": "~2.3",
+        "symfony/finder": "~2.3",
+        "symfony/process": "~2.3",
+        "symfony/security": "~2.3"
+    },
+    "autoload": {
+        "psr-0": { "Syno": "src/" }
+    }
+}
