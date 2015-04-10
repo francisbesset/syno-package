@@ -37,6 +37,13 @@ $front->get('/', function() use ($app) {
                     '<li>Add location "'.$app['url_generator']->generate('homepage', array(), true).'" (without double quotes)</li>'.
                     '<li>Click on "Ok" button and enjoy it!</li>'.
                 '</ol>'.
+
+                '<h2>How can I thank you?</h2>'.
+                '<p>I love money! You can send me a lot money by this PayPal button: '.
+                    '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=MTE9TTQYMC79Y">'.
+                        '<img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" alt="PayPal - The safer, easier way to pay online!" />'.
+                    '</a>'.
+                '</p>'.
             '</body>'.
         '</html>'
     );
