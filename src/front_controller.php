@@ -52,6 +52,11 @@ $front->get('/', function() use ($app) {
 $front->post('/', function(Request $request) use ($app) {
     $packages = array();
     $arch = $request->request->get('arch');
+
+    if ('88f6282' === $arch) {
+        $arch = '88f6281';
+    }
+
     $storage = $app['storage'];
     foreach ($storage->findPackages() as $package) {
         $archVersion = $storage->findArchVersionStable($package, $arch);
