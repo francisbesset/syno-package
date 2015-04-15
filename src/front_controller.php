@@ -77,7 +77,7 @@ $front->post('/', function(Request $request) use ($app) {
             'md5' => $archVersion->getMd5(),
             'icon' => base64_encode(file_get_contents(__DIR__.'/../web/thumb/'.$package->getSlug().'.png')),
             'size' => $archVersion->getSize(),
-            'qinst' => !$archVersion->isQuickInstall(),
+            'qinst' => false, // !$archVersion->isQuickInstall(),
             'depsers' => null,
             'deppkgs' => $archVersion->getDepPkgs(),
             'start' => true,

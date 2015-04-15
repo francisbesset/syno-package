@@ -70,7 +70,7 @@ class Spk
     {
         if (!$this->quickInstall) {
             $this->quickInstall = $this->extractor->extract($this->filePath, 'WIZARD_UIFILES', function ($in) {
-                return !is_dir($in.'/WIZARD_UIFILES');
+                return is_dir($in.'/WIZARD_UIFILES');
             });
         }
 
