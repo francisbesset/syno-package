@@ -26,6 +26,12 @@ class ArchVersion
 
     private $maintainer;
 
+    private $maintainerUrl;
+
+    private $distributor;
+
+    private $distributorUrl;
+
     private $beta;
 
     private $downloadCount;
@@ -136,6 +142,36 @@ class ArchVersion
     public function setMaintainer($maintainer)
     {
         $this->maintainer = $maintainer;
+    }
+
+    public function getMaintainerUrl()
+    {
+        return $this->maintainerUrl;
+    }
+
+    public function setMaintainerUrl($maintainerUrl)
+    {
+        $this->maintainerUrl = $maintainerUrl;
+    }
+
+    public function getDistributor()
+    {
+        return $this->distributor;
+    }
+
+    public function setDistributor($distributor)
+    {
+        $this->distributor = $distributor;
+    }
+
+    public function getDistributorUrl()
+    {
+        return $this->distributorUrl;
+    }
+
+    public function setDistributorUrl($distributorUrl)
+    {
+        $this->distributorUrl = $distributorUrl;
     }
 
     public function isBeta()

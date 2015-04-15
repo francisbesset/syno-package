@@ -91,6 +91,27 @@ class Spk
         return $info['maintainer'];
     }
 
+    public function getMaintainerUrl()
+    {
+        $info = $this->getInfo();
+
+        return isset($info['maintainer_url']) ? $info['maintainer_url'] : null;
+    }
+
+    public function getDistributor()
+    {
+        $info = $this->getInfo();
+
+        return isset($info['distributor']) ? $info['distributor'] : null;
+    }
+
+    public function getDistributorUrl()
+    {
+        $info = $this->getInfo();
+
+        return isset($info['distributor_url']) ? $info['distributor_url'] : null;
+    }
+
     public function isBeta()
     {
         $info = $this->getInfo();

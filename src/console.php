@@ -44,6 +44,9 @@ $console
                 $archVersion->setQuickInstall($spk->isQuickInstall());
                 $archVersion->setDepPkgs($spk->getDependencies());
                 $archVersion->setMaintainer($spk->getMaintainer());
+                $archVersion->setMaintainerUrl($spk->getMaintainerUrl());
+                $archVersion->setDistributor($spk->getDistributor());
+                $archVersion->setDistributorUrl($spk->getDistributorUrl());
                 $archVersion->setBeta($spk->isBeta());
 
                 $storage->insertArchVersion($archVersion);

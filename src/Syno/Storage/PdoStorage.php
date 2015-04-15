@@ -62,7 +62,7 @@ class PdoStorage
     public function findArchVersions(Package $package)
     {
         $stmt = $this->db->prepare(
-            'SELECT arch, version, file_path, stable, size, md5, description, qinst, deppkgs, maintainer, beta, download_count FROM arch_version WHERE slug = :slug'
+            'SELECT arch, version, file_path, stable, size, md5, description, qinst, deppkgs, maintainer, maintainer_url, distributor, distributor_url, beta, download_count FROM arch_version WHERE slug = :slug'
         );
         $stmt->bindValue(':slug', $package->getSlug(), \PDO::PARAM_STR);
 
@@ -81,7 +81,7 @@ class PdoStorage
     public function findArchVersionStable(Package $package, $arch)
     {
         $stmt = $this->db->prepare(
-            'SELECT arch, version, file_path, stable, size, md5, description, qinst, deppkgs, maintainer, beta, download_count FROM arch_version WHERE slug = :slug AND arch = :arch AND stable = :stable'
+            'SELECT arch, version, file_path, stable, size, md5, description, qinst, deppkgs, maintainer, maintainer_url, distributor, distributor_url, beta, download_count FROM arch_version WHERE slug = :slug AND arch = :arch AND stable = :stable'
         );
         $stmt->bindValue(':slug', $package->getSlug(), \PDO::PARAM_STR);
         $stmt->bindValue(':arch', $arch, \PDO::PARAM_STR);
@@ -104,7 +104,7 @@ class PdoStorage
     public function findArchVersion(Package $package, $arch, $version)
     {
         $stmt = $this->db->prepare(
-            'SELECT arch, version, file_path, stable, size, md5, description, qinst, deppkgs, maintainer, beta, download_count FROM arch_version WHERE slug = :slug AND arch = :arch AND version = :version'
+            'SELECT arch, version, file_path, stable, size, md5, description, qinst, deppkgs, maintainer, maintainer_url, distributor, distributor_url, beta, download_count FROM arch_version WHERE slug = :slug AND arch = :arch AND version = :version'
         );
         $stmt->bindValue(':slug', $package->getSlug(), \PDO::PARAM_STR);
         $stmt->bindValue(':arch', $arch, \PDO::PARAM_STR);
@@ -137,8 +137,8 @@ class PdoStorage
     public function insertArchVersion(ArchVersion $archVersion)
     {
         $stmt = $this->db->prepare(
-            'INSERT INTO arch_version (slug, arch, version, file_path, size, md5, description, qinst, deppkgs, maintainer, beta, download_count) '.
-            'VALUES(:slug, :arch, :version, :file_path, :size, :md5, :description, :qinst, :deppkgs, :maintainer, :beta, :download_count)'
+            'INSERT INTO arch_version (slug, arch, version, file_path, size, md5, description, qinst, deppkgs, maintainer, maintainer_url, distributor, distributor_url, beta, download_count) '.
+            'VALUES(:slug, :arch, :version, :file_path, :size, :md5, :description, :qinst, :deppkgs, :maintainer, :maintainer_url, :distributor, :distributor_url, :beta, :download_count)'
         );
         $stmt->bindValue(':slug', $archVersion->getSlug(), \PDO::PARAM_STR);
         $stmt->bindValue(':arch', $archVersion->getArch(), \PDO::PARAM_STR);
@@ -150,6 +150,9 @@ class PdoStorage
         $stmt->bindValue(':qinst', $archVersion->isQuickInstall(), \PDO::PARAM_BOOL);
         $stmt->bindValue(':deppkgs', $archVersion->getDepPkgs(), \PDO::PARAM_STR);
         $stmt->bindValue(':maintainer', $archVersion->getMaintainer(), \PDO::PARAM_STR);
+        $stmt->bindValue(':maintainer_url', $archVersion->getMaintainerUrl(), \PDO::PARAM_STR);
+        $stmt->bindValue(':distributor', $archVersion->getDistributor(), \PDO::PARAM_STR);
+        $stmt->bindValue(':distributor_url', $archVersion->getDistributorUrl(), \PDO::PARAM_STR);
         $stmt->bindValue(':beta', $archVersion->isBeta(), \PDO::PARAM_BOOL);
         $stmt->bindValue(':download_count', $archVersion->getDownloadCount(), \PDO::PARAM_INT);
 
@@ -202,6 +205,9 @@ class PdoStorage
         $archVersion->setQuickInstall(1 == $result['qinst'] ? true : false);
         $archVersion->setDepPkgs($result['deppkgs']);
         $archVersion->setMaintainer($result['maintainer']);
+        $archVersion->setMaintainerUrl($result['maintainer_url']);
+        $archVersion->setDistributor($result['distributor']);
+        $archVersion->setDistributorUrl($result['distributor_url']);
         $archVersion->setBeta(1 == $result['beta'] ? true : false);
         $archVersion->setDownloadCount($result['download_count']);
 
