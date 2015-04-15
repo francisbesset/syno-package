@@ -124,7 +124,7 @@ class PdoStorage
         $stmt = $this->db->prepare(
             'UPDATE arch_version SET stable = :stable WHERE slug = :slug AND arch = :arch AND version = :version'
         );
-        $stmt->bindValue(':stable', $archVersion->isStable(), \PDO::PARAM_BOOL);
+        $stmt->bindValue(':stable', $archVersion->isStable() ? true : null, \PDO::PARAM_BOOL);
         $stmt->bindValue(':slug', $archVersion->getSlug(), \PDO::PARAM_STR);
         $stmt->bindValue(':arch', $archVersion->getArch(), \PDO::PARAM_STR);
         $stmt->bindValue(':version', $archVersion->getVersion(), \PDO::PARAM_STR);
