@@ -46,7 +46,7 @@ class ArchVersion
 
     public static function getArchs()
     {
-        return array('noarch', '88f5281', '88f6281', 'armada370', 'armadaxp', 'bromolow', 'cedarview', 'evansport', 'powerpc', 'ppc824x', 'ppc853x', 'ppc854x', 'qoriq', 'x86');
+        return array('noarch', '88f5281', '88f6281', 'armada370', 'armada375', 'armadaxp', 'bromolow', 'cedarview', 'evansport', 'powerpc', 'ppc824x', 'ppc853x', 'ppc854x', 'qoriq', 'x86');
     }
 
     public function getSlug()
