@@ -27,7 +27,7 @@ $front->get('/', function() use ($app) {
                 '<ul>'.$packages.'</ul>'.
 
                 '<h2>How to install?</h2>'.
-                '<p>Following steps explain the process to add this repository:'.
+                '<p>These steps explain the process to add this repository:'.
                 //'But if you need some help you can refer to the help on <a href="http://www.synology.com/en-us/support/tutorials/500#t2.2">Synology website</a>.</p>'.
                 '<ol>'.
                     '<li>Launch "Package Center" application</li>'.
