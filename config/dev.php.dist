@@ -1,0 +1,11 @@
+<?php
+
+return array(
+    'db.dsn' => 'sqlite:'.__DIR__.'/../db.sqlite',
+    'db.user' => null,
+    'db.password' => null,
+
+    'admin.users' => array(
+        'admin' => 'admin',
+    ),
+);

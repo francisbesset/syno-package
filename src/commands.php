@@ -1,16 +1,16 @@
 <?php
 
-use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Syno\ArchVersion;
 use Syno\Package;
 
-$console = new Application();
-
 $console
     ->register('update')
-    ->setCode(function(InputInterface $input, OutputInterface $output) use ($app) {
+    ->setCode(function(InputInterface $input, OutputInterface $output) use ($console) {
+        $app = $console->getApplication();
+        var_dump($app['env'], $app['debug']);die;
+
         $spkDir = __DIR__.'/../spks';
         $finder = $app['finder']
             ->in($spkDir)
@@ -54,5 +54,3 @@ $console
         }
     })
 ;
-
-return $console;

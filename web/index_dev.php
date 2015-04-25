@@ -4,7 +4,7 @@ use Syno\Application;
 
 require __DIR__.'/../vendor/autoload.php';
 
-$app = new Application('prod', false);
+$app = new Application('dev', true);
 
 require __DIR__.'/../src/controllers.php';
 $app->run();
