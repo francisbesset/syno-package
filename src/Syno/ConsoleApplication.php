@@ -11,7 +11,7 @@ class ConsoleApplication extends BaseConsoleApplication
 
     public function __construct(Application $app)
     {
-        parent::__construct('Syno Package');
+        parent::__construct('Syno Package', $app::VERSION);
 
         $this->app = $app;
 

@@ -13,6 +13,8 @@ use Syno\Storage\PdoStorage;
 
 class Application extends BaseApplication
 {
+    const VERSION = '1.0.0-DEV';
+
     public function __construct($env, $debug)
     {
         if ('dev' === $env) {
