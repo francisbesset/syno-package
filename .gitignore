@@ -1,5 +1,5 @@
-/config/*
-!/config/dev.php.dist
+/app.log
+/config/*.php
 /spks/
 /vendor/
 /web/thumb/
