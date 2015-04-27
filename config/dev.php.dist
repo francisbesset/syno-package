@@ -1,5 +1,8 @@
 <?php
 
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
 return array(
     'db.dsn' => 'sqlite:'.__DIR__.'/../db.sqlite',
     'db.user' => null,
@@ -8,4 +11,22 @@ return array(
     'admin.users' => array(
         'admin' => 'admin',
     ),
+
+    'monolog.level' => Logger::DEBUG,
+    'monolog.handler' => function () {
+        return (new StreamHandler(__DIR__.'/../app.log', $this['monolog.level']))
+            ->pushProcessor($this['monolog.processor.application'])
+            ->pushProcessor($this['monolog.processor.web'])
+            ->pushProcessor($this['monolog.processor.synology'])
+        ;
+    },
+
+    // 'monolog.syno_package.level' => Logger::DEBUG,
+    // 'monolog.syno_package.handler' => function () {
+    //     return (new StreamHandler(__DIR__.'/../syno_package.log', $this['monolog.syno_package.level']))
+    //         ->pushProcessor($this['monolog.processor.application'])
+    //         ->pushProcessor($this['monolog.processor.web'])
+    //         ->pushProcessor($this['monolog.processor.synology'])
+    //     ;
+    // },
 );

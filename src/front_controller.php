@@ -50,7 +50,7 @@ $front->get('/', function() use ($app) {
 })->bind('homepage');
 
 $front->post('/', function(Request $request) use ($app) {
-    $packages = array();
+    $packages = $packageNames = array();
     $arch = $request->request->get('arch');
 
     if ('88f6282' === $arch) {
@@ -63,6 +63,8 @@ $front->post('/', function(Request $request) use ($app) {
         if (!$archVersion) {
             continue;
         }
+
+        $packageNames[] = $package->getName();
 
         $packages[] = array(
             'package' => $package->getSlug(),
@@ -91,6 +93,11 @@ $front->post('/', function(Request $request) use ($app) {
         );
     }
 
+    $app['monolog.syno_package']->info('List of packages fetched', array(
+        'nb_packages' => count($packageNames),
+        'package_names' => $packageNames,
+    ));
+
     return $app->json($packages);
 });
 
@@ -104,6 +111,12 @@ $front->get('/download/{slug}/{arch}/{version}', function ($slug, $arch, $versio
     if (!$archVersion) {
         $app->abort(404, sprintf('"%s" does not exists.', $slug));
     }
+
+    $app['monolog.syno_package']->info('Package downloaded', array(
+        'package' => $slug,
+        'arch' => $arch,
+        'version' => $version,
+    ));
 
     $app['storage']->increment($archVersion);
 

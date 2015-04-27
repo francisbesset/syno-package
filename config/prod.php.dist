@@ -1,0 +1,50 @@
+<?php
+
+use Gelf\Transport\UdpTransport;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Monolog\Handler\GelfHandler;
+
+$udpTransport = new UdpTransport(UdpTransport::DEFAULT_HOST, UdpTransport::DEFAULT_PORT);
+
+return array(
+    'dsn' => 'mysql:dbname=syno_package;host=127.0.0.1',
+    'user' => 'syno_package',
+    'password' => null,
+
+    'admin.users' => array(
+        'admin' => 'admin',
+    ),
+
+    // monolog with Gelf
+    'monolog.handler' => function () {
+        return (new GelfHandler($udpTransport, $this['monolog.level']))
+            ->pushProcessor($this['monolog.processor.application'])
+            ->pushProcessor($this['monolog.processor.web'])
+            ->pushProcessor($this['monolog.processor.synology'])
+        ;
+    },
+    'monolog.syno_package.handler' => function () {
+        return (new GelfHandler($udpTransport, $this['monolog.syno_package.level']))
+            ->pushProcessor($this['monolog.processor.application'])
+            ->pushProcessor($this['monolog.processor.web'])
+            ->pushProcessor($this['monolog.processor.synology'])
+        ;
+    },
+
+    // monolog with StreamHandler
+    'monolog.handler' => function () {
+        return (new StreamHandler(__DIR__.'/../app.log', $this['monolog.level']))
+            ->pushProcessor($this['monolog.processor.application'])
+            ->pushProcessor($this['monolog.processor.web'])
+            ->pushProcessor($this['monolog.processor.synology'])
+        ;
+    },
+    'monolog.syno_package.handler' => function () {
+        return (new StreamHandler(__DIR__.'/../syno_package.log', $this['monolog.syno_package.level']))
+            ->pushProcessor($this['monolog.processor.application'])
+            ->pushProcessor($this['monolog.processor.web'])
+            ->pushProcessor($this['monolog.processor.synology'])
+        ;
+    },
+);
