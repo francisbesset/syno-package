@@ -17,6 +17,11 @@ class Application extends BaseApplication
 
     public function __construct($env, $debug)
     {
+        parent::__construct(array(
+            'env' => $env,
+            'debug' => $debug,
+        ));
+
         if ('dev' === $env) {
             $configFile = __DIR__.'/../../config/dev.php.dist';
             if (is_file(__DIR__.'/../../config/dev.php')) {
@@ -25,11 +30,6 @@ class Application extends BaseApplication
         } else {
             $configFile = __DIR__.'/../../config/'.$env.'.php';
         }
-
-        parent::__construct(array(
-            'env' => $env,
-            'debug' => $debug,
-        ));
 
         $config = $this->getConfig(require $configFile);
 
