@@ -7,7 +7,7 @@ use Syno\ArchVersion;
 use Syno\Package;
 
 $console
-    ->register('update')
+    ->register('package:update')
     ->setCode(function(InputInterface $input, OutputInterface $output) use ($console) {
         $app = $console->getApplication();
 
