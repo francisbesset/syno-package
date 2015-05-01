@@ -53,7 +53,7 @@ $admin->get('/', function () use ($app) {
 })->bind('admin');
 
 $admin->post('/stables', function (Request $request) use ($app) {
-    foreach ($request->request->get('packages') as $slug => $archs) {
+    foreach ($request->request->get('packages', []) as $slug => $archs) {
         $package = $app['storage']->findPackage($slug);
 
         if (!$package) {
