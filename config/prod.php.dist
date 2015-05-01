@@ -8,9 +8,9 @@ use Monolog\Handler\GelfHandler;
 $udpTransport = new UdpTransport(UdpTransport::DEFAULT_HOST, UdpTransport::DEFAULT_PORT);
 
 return array(
-    'dsn' => 'mysql:dbname=syno_package;host=127.0.0.1',
-    'user' => 'syno_package',
-    'password' => null,
+    'db.dsn' => 'mysql:dbname=syno_package;host=127.0.0.1',
+    'db.user' => 'syno_package',
+    'db.password' => null,
 
     'admin.users' => array(
         'admin' => 'admin',
