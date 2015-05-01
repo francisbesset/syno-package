@@ -29,7 +29,9 @@ class ApplicationProcessor
     {
         $record['extra']['app_env'] = $this->app['env'];
         $record['extra']['app_debug'] = $this->app['debug'];
-        $record['extra']['app_version'] = $this->app::VERSION;
+
+        $app = $this->app;
+        $record['extra']['app_version'] = $app::VERSION;
 
         if (null !== $this->request) {
             $record['extra']['route'] = $this->request->attributes->get('_route');
