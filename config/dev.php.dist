@@ -4,8 +4,8 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
 return array(
-    'db.dsn' => 'sqlite:'.__DIR__.'/../db.sqlite',
-    'db.user' => null,
+    'db.dsn' => 'mysql:dbname=syno_package;host=db',
+    'db.user' => 'root',
     'db.password' => null,
 
     'admin.users' => array(

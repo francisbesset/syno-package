@@ -3,3 +3,5 @@
 /spks/
 /vendor/
 /web/thumb/
+
+/docker-compose.yml
