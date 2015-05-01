@@ -9,7 +9,6 @@ $console
     ->register('update')
     ->setCode(function(InputInterface $input, OutputInterface $output) use ($console) {
         $app = $console->getApplication();
-        var_dump($app['env'], $app['debug']);die;
 
         $spkDir = __DIR__.'/../spks';
         $finder = $app['finder']
