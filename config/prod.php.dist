@@ -1,11 +1,13 @@
 <?php
 
+use Gelf\Publisher;
 use Gelf\Transport\UdpTransport;
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
 use Monolog\Handler\GelfHandler;
+use Monolog\Handler\StreamHandler;
 
-$udpTransport = new UdpTransport(UdpTransport::DEFAULT_HOST, UdpTransport::DEFAULT_PORT);
+$publisher = new Publisher(
+    new UdpTransport(UdpTransport::DEFAULT_HOST, UdpTransport::DEFAULT_PORT)
+);
 
 return array(
     'db.dsn' => 'mysql:dbname=syno_package;host=db',
@@ -17,15 +19,15 @@ return array(
     ),
 
     // monolog with Gelf
-    'monolog.handler' => function () {
-        return (new GelfHandler($udpTransport, $this['monolog.level']))
+    'monolog.handler' => function () use ($publisher) {
+        return (new GelfHandler($publisher, $this['monolog.level']))
             ->pushProcessor($this['monolog.processor.application'])
             ->pushProcessor($this['monolog.processor.web'])
             ->pushProcessor($this['monolog.processor.synology'])
         ;
     },
-    'monolog.syno_package.handler' => function () {
-        return (new GelfHandler($udpTransport, $this['monolog.syno_package.level']))
+    'monolog.syno_package.handler' => function () use ($publisher) {
+        return (new GelfHandler($publisher, $this['monolog.syno_package.level']))
             ->pushProcessor($this['monolog.processor.application'])
             ->pushProcessor($this['monolog.processor.web'])
             ->pushProcessor($this['monolog.processor.synology'])
