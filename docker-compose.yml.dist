@@ -20,6 +20,8 @@ mysql:
     environment:
         - MYSQL_ALLOW_EMPTY_PASSWORD=yes
         - MYSQL_DATABASE=syno_package
+    volumes_from:
+        - datamysql
 
 tools:
     build: ./docker/tools
@@ -28,3 +30,7 @@ tools:
     links:
         - mysql:db
 
+datamysql:
+     image: busybox
+     volumes:
+        - /var/lib/mysql
