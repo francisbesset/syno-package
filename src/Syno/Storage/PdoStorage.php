@@ -15,6 +15,11 @@ class PdoStorage
         $this->db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }
 
+    public function getConnection()
+    {
+        return $this->db;
+    }
+
     public function findPackages()
     {
         $stmt = $this->db->prepare('SELECT slug, name, download_count FROM package');

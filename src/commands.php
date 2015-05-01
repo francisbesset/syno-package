@@ -1,6 +1,7 @@
 <?php
 
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Syno\ArchVersion;
 use Syno\Package;
@@ -52,4 +53,35 @@ $console
             }
         }
     })
+;
+
+$console
+    ->register('db:create')
+    ->setCode(function(InputInterface $input, OutputInterface $output) use ($console) {
+        $console
+            ->getApplication()['storage']
+            ->getConnection()
+            ->exec(file_get_contents(__DIR__.'/../schema.sql'))
+        ;
+    });
+;
+
+$console
+    ->register('db:drop')
+    ->addOption('force', null, InputOption::VALUE_NONE, 'Force operation')
+    ->setCode(function(InputInterface $input, OutputInterface $output) use ($console) {
+        if (false === $input->getOption('force')) {
+            throw new \InvalidArgumentException('You must specify "--force" option to drop tables');
+        }
+
+        $console
+            ->getApplication()['storage']
+            ->getConnection()
+            ->exec(<<<EOF
+DROP TABLE arch_version;
+DROP TABLE package;
+EOF
+            )
+        ;
+    });
 ;

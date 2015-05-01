@@ -1,5 +1,3 @@
-DROP TABLE IF EXISTS arch_version;
-DROP TABLE IF EXISTS package;
 CREATE TABLE `package` (
   `slug` varchar(50) NOT NULL,
   `name` varchar(50) NOT NULL,
@@ -7,7 +5,6 @@ CREATE TABLE `package` (
   PRIMARY KEY (`slug`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS arch_version;
 CREATE TABLE `arch_version` (
   `slug` varchar(50) NOT NULL,
   `arch` varchar(10) NOT NULL,
