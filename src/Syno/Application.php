@@ -68,7 +68,9 @@ class Application extends BaseApplication
         });
 
         $this['monolog.processor.web'] = $this->share(function() {
-            $processor =  new Processor\WebProcessor(array());
+            $processor =  (new Processor\WebProcessor([]))
+                ->addExtraField('ip_real', 'HTTP_X_REAL_IP')
+            ;
 
             $this->before(function (Request $request) use ($processor) {
                 $processor->setRequest($request);
