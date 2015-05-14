@@ -121,11 +121,23 @@ class Spk
 
     public function getIcon($format = self::ICON_BASE64)
     {
-        $info = $this->getInfo();
+        $icon = $this->extract('PACKAGE_ICON.PNG', function ($filePath) use ($format) {
+            $icon = file_get_contents($filePath);
 
-        $icon = $info['package_icon'];
-        if (self::ICON_BINARY === $format) {
-            return base64_decode($icon);
+            if (self::ICON_BASE64 === $format) {
+                $icon = base64_encode($icon);
+            }
+
+            return $icon;
+        });
+
+        if (false === $icon) {
+            $info = $this->getInfo();
+
+            $icon = $info['package_icon'];
+            if (self::ICON_BINARY === $format) {
+                return base64_decode($icon);
+            }
         }
 
         return $icon;
@@ -143,11 +155,18 @@ class Spk
     private function getInfo()
     {
         if (!$this->info) {
-            $this->info = $this->extractor->extract($this->filePath, 'INFO', function ($in) {
-                return parse_ini_file($in.'/INFO');
+            $this->info = $this->extract('INFO', function ($filePath) {
+                return parse_ini_file($filePath);
             });
         }
 
         return $this->info;
+    }
+
+    private function extract($file, Callable $callback)
+    {
+        return $this->extractor->extract($this->filePath, $file, function ($in) use ($file, $callback) {
+            return is_file($in.'/'.$file) ? $callback($in.'/'.$file) : false;
+        });
     }
 }
